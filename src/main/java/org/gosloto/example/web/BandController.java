@@ -13,34 +13,31 @@ import org.tarantool.TarantoolClient;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/band")
-public class TarantoolController {
+public class BandController {
 
   private final TarantoolClient tarantoolClient;
+
+  private static final String SPACE_NAME = "tester";
+
 
   @GetMapping("/find")
   List<?> find(@RequestParam int key){
 
-    final List<?> select = tarantoolClient.syncOps().select(
-        "tester",
+    return tarantoolClient.syncOps().select(
+        SPACE_NAME,
         "primary",
         Collections.singletonList(key),
         0,
         1,
         Iterator.EQ
     );
-
-    return select;
   }
 
   @GetMapping("/add")
   List<?> add(@RequestParam int key){
-
-
-    final List<?> insert = tarantoolClient.syncOps().insert(
-        "tester",
+    return tarantoolClient.syncOps().insert(
+        SPACE_NAME,
         List.of(key, "simple", 1234)
     );
-
-    return insert;
   }
 }

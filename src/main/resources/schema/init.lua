@@ -31,4 +31,4 @@ s:create_index('secondary', {
 })
 
 -- drop index
-s.index.secondary:drop()
+--s.index.secondary:drop()
