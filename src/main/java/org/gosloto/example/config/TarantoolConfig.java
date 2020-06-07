@@ -10,10 +10,9 @@ import org.tarantool.TarantoolClientImpl;
 public class TarantoolConfig {
 
   @Bean
-  TarantoolClient tarantoolClient(){
-    TarantoolClientConfig config = new TarantoolClientConfig();
+  TarantoolClient tarantoolClient() {
+    var config = new TarantoolClientConfig();
     config.username = "guest";
-//    config.password = "test";
 
     return new TarantoolClientImpl("localhost:3301", config);
   }

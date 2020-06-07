@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:1234}
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+
+app:
+  counter: 10_000_000
+  metrics:
+    project: example-storage
+    service: example-storage-local
+
+management:
+  endpoints:
+    web.exposure.include: health,metrics
+  metrics:
+    export:
+      graphite:
+        enabled: true
+        host: mon.finch.fm
+        protocol: plaintext
+        tags-as-prefix: project
+        port: 2003
+        step: 10s

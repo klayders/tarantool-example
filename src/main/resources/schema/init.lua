@@ -4,31 +4,21 @@
 --- DateTime: 07.06.2020 02:17
 ---
 box.cfg{listen = 3301}
-s = box.schema.space.create('tester')
+s = box.schema.space.create('user')
 
-s:format({
-    { name = 'id', type = 'unsigned' },
-    { name = 'band_name', type = 'string' },
-    { name = 'year', type = 'unsigned' }
-})
+s:format({ { name = 'id', type = 'unsigned' }, { name = 'first_name', type = 'string' }, { name = 'last_name', type = 'string' }, { name = 'login', type = 'string' }, { name = 'email', type = 'string' } })
 
 -- primary key
-s:create_index('primary', {
-    type = 'hash',
-    parts = { 'id' }
-})
-
-s:insert { 1, 'Roxette', 1986 }
-s:insert { 2, 'Scorpions', 2015 }
-s:insert { 3, 'Ace of Base', 1993 }
-
-s:select { 3 }
-
+s:create_index('primary', { type = 'hash', parts = { 'id' } })
 -- second key
-s:create_index('secondary', {
-    type = 'hash',
-    parts = { 'band_name' }
-})
+s:create_index('secondary', { type = 'hash', parts = { 'login', 'email' } })
+
+
+--s:insert { 1, 'Roxette', 1986 }
+--s:insert { 2, 'Scorpions', 2015 }
+--s:insert { 3, 'Ace of Base', 1993 }
+--
+--s:select { 3 }
 
 -- drop index
 --s.index.secondary:drop()

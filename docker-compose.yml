@@ -5,3 +5,10 @@ services:
     image: tarantool/tarantool
     ports:
       - "3301:3301"
+  pg:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+    ports:
+      - 5432:5432
